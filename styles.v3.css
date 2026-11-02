@@ -188,8 +188,8 @@ section[id] { scroll-margin-top: 110px; }
 }
 .lid { position: absolute; left: 0; right: 0; top: -12px; height: 12px; z-index: 5; }
 .flap { position: absolute; top: 0; width: 50%; height: 12px; background: #fff; }
-.flap-left { left: 0; transform-origin: 100% 50%; }
-.flap-right { right: 0; transform-origin: 0% 50%; }
+.flap-left { left: 0; transform-origin: 0% 50%; }
+.flap-right { right: 0; transform-origin: 100% 50%; }
 .fan-card {
   position: absolute; left: 50%; top: 50%; width: 230px; height: auto;
   border-radius: 12px; z-index: 1; opacity: 0;
