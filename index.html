@@ -14,15 +14,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
+<link rel="stylesheet" href="styles.v3.css">
 </head>
 <body>
 <a class="skip-link" href="#mission">Skip to content</a>
 
-<!-- Fixed header -->
-<header class="site-header">
+<!-- Fixed header: transparent over the hero, solid afterwards -->
+<header class="site-header" id="siteHeader">
   <a class="brand" href="#top" aria-label="GDG Kolachi home">
     <img class="brand-logo" src="assets/gdg-logo.svg" alt="GDG Kolachi" width="197" height="28">
     <span class="brand-text">
@@ -39,7 +37,7 @@
 </header>
 
 <!-- Fixed bottom bar (functions as footer) -->
-<div class="bottom-bar" aria-label="Footer">
+<div class="bottom-bar" id="bottomBar" aria-label="Footer">
   <div class="socials">
     <a href="https://www.instagram.com/gdgkolachi/" target="_blank" rel="noopener">Instagram</a>
     <a href="https://www.linkedin.com/company/gdgkolachi/" target="_blank" rel="noopener">LinkedIn</a>
@@ -50,48 +48,69 @@
 </div>
 
 <main id="top">
-  <!-- HERO: scroll-driven phrase cycle, one photo per phrase -->
+  <!-- HERO: five full-screen panels sliding up, photo + phrase together -->
   <section class="hero-stage" id="hero" aria-label="Intro">
     <div class="hero-sticky">
-      <div class="hero-bg-stack" aria-hidden="true">
-        <img class="hero-bg-img is-active" src="assets/hero-1.jpg" alt="">
-        <img class="hero-bg-img" src="assets/hero-2.jpg" alt="">
-        <img class="hero-bg-img" src="assets/hero-3.jpg" alt="">
-        <img class="hero-bg-img" src="assets/hero-4.jpg" alt="">
-        <img class="hero-bg-img" src="assets/hero-5.jpg" alt="">
-        <div class="hero-shade"></div>
+      <div class="hero-panel">
+        <img class="hero-panel-bg" src="assets/hero-1.jpg" alt="">
+        <div class="hero-panel-shade"></div>
+        <div class="hero-panel-content">
+          <h1>GDG Kolachi</h1>
+          <p class="hero-sub">An initiative to concentrate the efforts of developers in and around Karachi — to learn, share and build with Google's developer technologies. Workshops, codelabs, hackathons, and the occasional late-night debugging session.</p>
+        </div>
       </div>
-      <div class="hero-mask">
-        <h1 class="hero-phrase is-current">GDG Kolachi</h1>
-        <h1 class="hero-phrase">85+ Events</h1>
-        <h1 class="hero-phrase">5+ Google Developer Experts</h1>
-        <h1 class="hero-phrase">25+ Partners and Sponsors</h1>
-        <h1 class="hero-phrase">10,000+ community members</h1>
+      <div class="hero-panel">
+        <img class="hero-panel-bg" src="assets/hero-2.jpg" alt="">
+        <div class="hero-panel-shade"></div>
+        <div class="hero-panel-content"><h1>85+ Events</h1></div>
       </div>
-      <div class="hero-progress" aria-hidden="true"><span></span></div>
+      <div class="hero-panel">
+        <img class="hero-panel-bg" src="assets/hero-3.jpg" alt="">
+        <div class="hero-panel-shade"></div>
+        <div class="hero-panel-content"><h1>5+ Google Developer Experts</h1></div>
+      </div>
+      <div class="hero-panel">
+        <img class="hero-panel-bg" src="assets/hero-4.jpg" alt="">
+        <div class="hero-panel-shade"></div>
+        <div class="hero-panel-content"><h1>25+ Partners and Sponsors</h1></div>
+      </div>
+      <div class="hero-panel">
+        <img class="hero-panel-bg" src="assets/hero-5.jpg" alt="">
+        <div class="hero-panel-shade"></div>
+        <div class="hero-panel-content"><h1>10,000+ community members</h1></div>
+      </div>
     </div>
   </section>
 
-  <!-- Dotted interlude with bracket mark -->
-  <section class="interlude" aria-hidden="true">
-    <div class="dot-grid"></div>
-    <div class="bracket-mark">
-      <span class="br b-blue">&lt;</span><span class="br b-red">/</span><span class="br b-yellow">&gt;</span><span class="br b-green">&gt;</span>
+  <!-- DOTTED SECTION: JS dot grid + cursor glow, static bracket mark -->
+  <section class="dots-stage" id="dots" aria-label="Community">
+    <div class="dots-container" data-dots-container-init></div>
+    <div class="bracket-mark" aria-hidden="true">
+      <span class="br br-left">&lt;</span><span class="br br-right">&gt;</span>
     </div>
   </section>
 
-  <!-- MISSION: word-by-word scroll reveal -->
+  <!-- MISSION: word-by-word scroll brightening -->
   <section class="mission" id="mission">
-    <p class="mission-text" id="missionText">We are a community-driven chapter using technology to change lives. Through workshops, hackathons and code, we are building a future where innovation is open to everyone. Come build, learn and grow with us.</p>
+    <p class="mission-text" id="missionText">We believe in the power of community-driven technology to transform lives. Every workshop, every hackathon, every line of code written together brings us closer to a future where innovation is accessible to all. Join us on this journey of building, learning, and growing — together.</p>
   </section>
 
-  <!-- SCROLL DOWN + FLAGSHIP EVENTS fan -->
+  <!-- SCROLL DOWN + 3D BOX + CARD FAN -->
   <section class="flagship-stage" id="flagship" aria-label="Flagship events">
     <div class="flagship-sticky">
-      <div class="scroll-down">Scroll Down</div>
+      <div class="scroll-down">Scroll Down<span class="chev">&#8964;</span></div>
       <div class="flagship-scene">
-        <div class="truck-box" aria-hidden="true">
-          <img class="box-img" src="assets/box-front.png" alt="Flagship Events box">
+        <div class="cube-wrap" id="cubeWrap">
+          <div class="cube" id="cube">
+            <div class="face face-front"></div>
+            <div class="face face-right"></div>
+            <div class="face face-back"></div>
+            <div class="face face-left"></div>
+          </div>
+          <div class="lid" id="lid">
+            <div class="flap flap-left"></div>
+            <div class="flap flap-right"></div>
+          </div>
         </div>
         <img class="fan-card" src="assets/card-1.png" alt="DevFest">
         <img class="fan-card" src="assets/card-2.png" alt="Build with AI">
@@ -151,14 +170,14 @@
         </figure>
       </div>
     </div>
-    <p class="swipe-hint">Swipe to browse</p>
+    <p class="swipe-hint">&lt; Swipe to Browse &gt;</p>
   </section>
 
   <!-- BECOME A MEMBER -->
   <section class="member" id="member">
     <div class="member-left">
       <h2 class="member-heading">Become a<br>Member</h2>
-      <p class="member-copy">Join builders, designers and innovators. Attend events, grow your skills and ship real projects with a community that builds together.</p>
+      <p class="member-copy">Join a community of builders, designers, and innovators on campus. Attend events, grow your skills, and ship real projects alongside people who care about technology.</p>
       <div class="member-ctas">
         <a class="btn btn-join" href="https://gdg.community.dev/gdg-kolachi/" target="_blank" rel="noopener">Join Now</a>
         <a class="btn btn-outline" href="https://gdg.community.dev/gdg-kolachi/" target="_blank" rel="noopener">Learn More</a>
@@ -175,14 +194,23 @@
         <li class="c-yellow">Mobile Developers</li>
         <li class="c-green">Community Leaders</li>
         <li class="c-blue">UI/UX Designers</li>
+        <li class="c-blue">Student Developers</li>
+        <li class="c-red">Hackathon Builders</li>
+        <li class="c-yellow">Tech Enthusiasts</li>
+        <li class="c-green">Open Source</li>
+        <li class="c-blue">ML Engineers</li>
+        <li class="c-red">Cloud Architects</li>
+        <li class="c-yellow">Mobile Developers</li>
+        <li class="c-green">Community Leaders</li>
+        <li class="c-blue">UI/UX Designers</li>
       </ul>
     </div>
   </section>
 
   <!-- THE TEAM -->
   <section class="team" id="team">
-    <p class="team-eyebrow">2026 Core Team</p>
     <h2 class="section-heading center">The Team</h2>
+    <p class="team-eyebrow">2026 Core Team</p>
     <div class="team-grid" id="teamGrid">
       <article class="team-card"><img class="avatar-img" src="assets/team-1.jpg" alt="Danella Patrick"><h3>Danella Patrick</h3><p>Lead Organizer</p></article>
       <article class="team-card"><img class="avatar-img" src="assets/team-2.jpg" alt="Hassam Jawed"><h3>Hassam Jawed</h3><p>Lead Organizer</p></article>
@@ -202,9 +230,10 @@
       <article class="team-card"><img class="avatar-img" src="assets/team-16.jpg" alt="Abdullah Ahmed"><h3>Abdullah Ahmed</h3><p>Team Member</p></article>
       <article class="team-card"><img class="avatar-img" src="assets/team-17.jpg" alt="Farah Shafi"><h3>Farah Shafi</h3><p>Team Member</p></article>
     </div>
+    <div class="team-progress" aria-hidden="true"></div>
   </section>
 </main>
 
-<script src="script.js"></script>
+<script src="script.v3.js"></script>
 </body>
 </html>
