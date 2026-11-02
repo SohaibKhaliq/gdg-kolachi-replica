@@ -1,34 +1,40 @@
-/* GDG Kolachi replica — scroll-driven animations in vanilla JS (no libraries).
-   All effects are tied to scroll position, matching the original's behaviour:
-   hero phrase cycle, mission word reveal, flagship card fan, audience
-   highlight, team brightening, and drag-to-scroll gallery. */
+/* GDG Kolachi replica v2 — GSAP + ScrollTrigger scroll effects (same
+   libraries the original uses), with a static fallback if GSAP fails
+   to load. All effects are scroll-driven: hero phrase/photo cycle,
+   mission word reveal, flagship card fan, audience highlight,
+   team brightening, gallery drag. */
 
 (function () {
   'use strict';
 
-  var ticking = false;
-
   function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+  var hasGsap = (typeof gsap !== 'undefined') && (typeof ScrollTrigger !== 'undefined');
+  if (hasGsap) gsap.registerPlugin(ScrollTrigger);
 
-  /* ---------- Hero phrase cycle ---------- */
+  /* ---------- Hero phrase + photo cycle ---------- */
   var heroStage = document.getElementById('hero');
   var phrases = Array.prototype.slice.call(document.querySelectorAll('.hero-phrase'));
+  var bgImgs = Array.prototype.slice.call(document.querySelectorAll('.hero-bg-img'));
   var heroBar = document.querySelector('.hero-progress span');
-  var currentPhrase = -1;
+  var currentPhrase = 0;
 
-  function updateHero() {
+  function setHero(idx) {
+    if (idx === currentPhrase) return;
+    currentPhrase = idx;
+    phrases.forEach(function (el, i) {
+      el.classList.toggle('is-current', i === idx);
+      el.classList.toggle('is-past', i < idx);
+    });
+    bgImgs.forEach(function (el, i) {
+      el.classList.toggle('is-active', i === idx);
+    });
+    if (heroBar) heroBar.style.width = ((idx + 1) / phrases.length * 100) + '%';
+  }
+
+  function heroProgress() {
     var top = heroStage.offsetTop;
     var span = heroStage.offsetHeight - window.innerHeight;
-    var p = span > 0 ? clamp((window.scrollY - top) / span, 0, 1) : 0;
-    var idx = Math.min(phrases.length - 1, Math.floor(p * phrases.length));
-    if (idx !== currentPhrase) {
-      currentPhrase = idx;
-      phrases.forEach(function (el, i) {
-        el.classList.toggle('is-current', i === idx);
-        el.classList.toggle('is-past', i < idx);
-      });
-      if (heroBar) heroBar.style.width = ((idx + 1) / phrases.length * 100) + '%';
-    }
+    return span > 0 ? clamp((window.scrollY - top) / span, 0, 1) : 0;
   }
 
   /* ---------- Mission word-by-word reveal ---------- */
@@ -42,11 +48,14 @@
     missionWords = Array.prototype.slice.call(missionEl.querySelectorAll('.w'));
   }
 
-  function updateMission() {
-    if (!missionWords.length) return;
+  function missionProgress() {
+    if (!missionWords.length) return 0;
     var rect = missionEl.getBoundingClientRect();
     var vh = window.innerHeight;
-    var p = clamp((vh * 0.85 - rect.top) / (rect.height + vh * 0.3), 0, 1);
+    return clamp((vh * 0.85 - rect.top) / (rect.height + vh * 0.3), 0, 1);
+  }
+
+  function updateMission(p) {
     var litCount = Math.floor(p * missionWords.length);
     missionWords.forEach(function (el, i) {
       el.classList.toggle('lit', i < litCount);
@@ -60,32 +69,81 @@
   var truckBox = document.querySelector('.truck-box');
   var fanCards = Array.prototype.slice.call(document.querySelectorAll('.fan-card'));
 
-  function updateFlagship() {
-    var top = flagshipStage.offsetTop;
-    var span = flagshipStage.offsetHeight - window.innerHeight;
-    var p = span > 0 ? clamp((window.scrollY - top) / span, 0, 1) : 0;
-    if (scrollDownEl) scrollDownEl.style.opacity = String(Math.max(0, 1 - p * 3));
-    var fanP = clamp((p - 0.25) / 0.5, 0, 1);
+  function fanSpread() {
+    var vw = window.innerWidth;
+    var cardW = vw <= 900 ? 170 : 230;
+    return Math.max(30, Math.min(200, (vw - cardW - 40) / 4));
+  }
+
+  function updateFlagship(p) {
+    if (scrollDownEl) scrollDownEl.style.opacity = String(Math.max(0, 1 - p * 5.5));
+    var fanP = clamp((p - 0.3) / 0.5, 0, 1);
+    var spread = fanSpread();
     fanCards.forEach(function (card, i) {
       var off = i - 2;
-      var x = off * 200 * fanP;
-      var y = Math.abs(off) * 34 * fanP;
-      var r = off * 13 * fanP;
-      var s = 0.75 + 0.25 * fanP;
-      card.style.transform = 'translate(' + x + 'px, ' + y + 'px) rotate(' + r + 'deg) scale(' + s + ')';
-      card.style.opacity = String(fanP);
-      card.style.zIndex = String(10 - Math.abs(off));
+      var x = off * spread * fanP;
+      var y = Math.abs(off) * 26 * fanP;
+      var r = off * 10 * fanP;
+      var s = 0.8 + 0.2 * fanP;
+      if (hasGsap) {
+        gsap.set(card, { x: x, y: y, rotation: r, scale: s, opacity: fanP, zIndex: 10 - Math.abs(off) });
+      } else {
+        card.style.transform = 'translate(' + x + 'px, ' + y + 'px) rotate(' + r + 'deg) scale(' + s + ')';
+        card.style.opacity = String(fanP);
+        card.style.zIndex = String(10 - Math.abs(off));
+      }
     });
     if (truckBox) {
-      truckBox.style.opacity = String(1 - Math.max(0, (p - 0.7) / 0.3) * 0.85);
-      truckBox.style.transform = 'translate(-50%, -50%) scale(' + (1 - fanP * 0.12) + ')';
+      var bOp = 1 - Math.max(0, (p - 0.7) / 0.3) * 0.85;
+      if (hasGsap) {
+        gsap.set(truckBox, { opacity: bOp, scale: 1 - fanP * 0.12 });
+      } else {
+        truckBox.style.opacity = String(bOp);
+        truckBox.style.transform = 'translate(-50%, -50%) scale(' + (1 - fanP * 0.12) + ')';
+      }
     }
-    if (flagshipScene && p > 0.9) {
-      flagshipScene.style.opacity = String(1 - (p - 0.9) / 0.1);
-    } else if (flagshipScene) {
-      flagshipScene.style.opacity = '1';
+    if (flagshipScene) {
+      flagshipScene.style.opacity = p > 0.9 ? String(1 - (p - 0.9) / 0.1) : '1';
     }
   }
+
+  function flagshipProgress() {
+    var top = flagshipStage.offsetTop;
+    var span = flagshipStage.offsetHeight - window.innerHeight;
+    return span > 0 ? clamp((window.scrollY - top) / span, 0, 1) : 0;
+  }
+
+  /* ---------- Drive everything ---------- */
+  function updateAll() {
+    var hp = heroProgress();
+    setHero(Math.min(phrases.length - 1, Math.floor(hp * phrases.length)));
+    updateMission(missionProgress());
+    updateFlagship(flagshipProgress());
+    updateAudience();
+  }
+
+  if (hasGsap) {
+    ScrollTrigger.create({ trigger: heroStage, start: 'top top', end: 'bottom bottom', scrub: true, onUpdate: updateAll });
+    ScrollTrigger.create({ trigger: missionEl, start: 'top 85%', end: 'bottom 40%', scrub: true, onUpdate: updateAll });
+    ScrollTrigger.create({ trigger: flagshipStage, start: 'top top', end: 'bottom bottom', scrub: true, onUpdate: updateAll });
+    window.addEventListener('scroll', updateAudience, { passive: true });
+    var gsapTicking = false;
+    window.addEventListener('scroll', function () {
+      if (gsapTicking) return;
+      gsapTicking = true;
+      requestAnimationFrame(function () { updateAll(); gsapTicking = false; });
+    }, { passive: true });
+    updateAll();
+  } else {
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { updateAll(); ticking = false; });
+    }, { passive: true });
+    updateAll();
+  }
+  window.addEventListener('resize', updateAll);
 
   /* ---------- Audience central highlight ---------- */
   var audienceItems = Array.prototype.slice.call(document.querySelectorAll('#audienceList li'));
@@ -106,22 +164,6 @@
       li.classList.toggle('lit', li === best);
     });
   }
-
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(function () {
-      updateHero();
-      updateMission();
-      updateFlagship();
-      updateAudience();
-      ticking = false;
-    });
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  onScroll();
 
   /* ---------- Team cards brighten on scroll into view ---------- */
   var teamCards = document.querySelectorAll('#teamGrid .team-card');
@@ -144,17 +186,15 @@
   /* ---------- Gallery drag to scroll ---------- */
   var gallery = document.getElementById('gallery');
   if (gallery) {
-    var down = false, startX = 0, startScroll = 0, moved = 0;
+    var down = false, startX = 0, startScroll = 0;
     gallery.addEventListener('pointerdown', function (e) {
-      down = true; moved = 0;
+      down = true;
       startX = e.clientX; startScroll = gallery.scrollLeft;
       gallery.classList.add('dragging');
     });
     gallery.addEventListener('pointermove', function (e) {
       if (!down) return;
-      var dx = e.clientX - startX;
-      moved = Math.max(moved, Math.abs(dx));
-      gallery.scrollLeft = startScroll - dx;
+      gallery.scrollLeft = startScroll - (e.clientX - startX);
     });
     function endDrag() {
       down = false;
