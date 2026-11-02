@@ -197,7 +197,7 @@
     var p = span > 0 ? clamp((window.scrollY - top) / span, 0, 1) : 0;
 
     if (scrollDownEl) {
-      scrollDownEl.style.opacity = String(1 - 0.95 * clamp(p / 0.3, 0, 1));
+      scrollDownEl.style.opacity = String(1 - 0.95 * clamp(p / 0.2, 0, 1));
     }
 
     var rise = (1 - clamp((p - 0.2) / 0.25, 0, 1)) * 45;
