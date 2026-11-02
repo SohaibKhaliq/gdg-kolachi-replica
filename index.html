@@ -4,10 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GDG Kolachi</title>
+<meta name="description" content="Google Developer Group Kolachi — workshops, hackathons, and community events for developers in and around Karachi.">
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="assets/site.webmanifest">
+<meta name="theme-color" content="#0a0a0a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#mission">Skip to content</a>
@@ -15,9 +24,7 @@
 <!-- Fixed header -->
 <header class="site-header">
   <a class="brand" href="#top" aria-label="GDG Kolachi home">
-    <span class="brand-mark" aria-hidden="true">
-      <span class="lozenge l-blue"></span><span class="lozenge l-red"></span><span class="lozenge l-yellow"></span><span class="lozenge l-green"></span>
-    </span>
+    <img class="brand-logo" src="assets/gdg-logo.svg" alt="GDG Kolachi" width="197" height="28">
     <span class="brand-text">
       <span class="brand-line1">Google Developer Group</span>
       <span class="brand-line2">Kolachi</span>
@@ -27,32 +34,39 @@
     <a href="#mission">Our Mission</a>
     <a href="#partners">Partners</a>
     <a href="#team">The Team</a>
-    <a class="btn btn-join" href="#member">Join Us</a>
+    <a class="btn btn-join" href="https://register.gdgkolachi.com/" target="_blank" rel="noopener">Join Us</a>
   </nav>
 </header>
 
 <!-- Fixed bottom bar (functions as footer) -->
 <div class="bottom-bar" aria-label="Footer">
   <div class="socials">
-    <a href="#">Instagram</a>
-    <a href="#">LinkedIn</a>
-    <a href="#">Facebook</a>
-    <a href="#">Bevy</a>
+    <a href="https://www.instagram.com/gdgkolachi/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.linkedin.com/company/gdgkolachi/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.facebook.com/GDGKolachi/" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://gdg.community.dev/gdg-kolachi/" target="_blank" rel="noopener">Bevy</a>
   </div>
   <div class="bottom-credit">Google Developer Group Kolachi 2026</div>
 </div>
 
 <main id="top">
-  <!-- HERO: scroll-driven phrase cycle -->
+  <!-- HERO: scroll-driven phrase cycle, one photo per phrase -->
   <section class="hero-stage" id="hero" aria-label="Intro">
     <div class="hero-sticky">
-      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-bg-stack" aria-hidden="true">
+        <img class="hero-bg-img is-active" src="assets/hero-1.jpg" alt="">
+        <img class="hero-bg-img" src="assets/hero-2.jpg" alt="">
+        <img class="hero-bg-img" src="assets/hero-3.jpg" alt="">
+        <img class="hero-bg-img" src="assets/hero-4.jpg" alt="">
+        <img class="hero-bg-img" src="assets/hero-5.jpg" alt="">
+        <div class="hero-shade"></div>
+      </div>
       <div class="hero-mask">
         <h1 class="hero-phrase is-current">GDG Kolachi</h1>
         <h1 class="hero-phrase">85+ Events</h1>
         <h1 class="hero-phrase">5+ Google Developer Experts</h1>
-        <h1 class="hero-phrase">25+ Partners &amp; Sponsors</h1>
-        <h1 class="hero-phrase">10,000+ Community Members</h1>
+        <h1 class="hero-phrase">25+ Partners and Sponsors</h1>
+        <h1 class="hero-phrase">10,000+ community members</h1>
       </div>
       <div class="hero-progress" aria-hidden="true"><span></span></div>
     </div>
@@ -77,15 +91,13 @@
       <div class="scroll-down">Scroll Down</div>
       <div class="flagship-scene">
         <div class="truck-box" aria-hidden="true">
-          <div class="truck-pattern"></div>
-          <div class="truck-band">Flagship Events</div>
-          <div class="truck-oval">Kolachi</div>
+          <img class="box-img" src="assets/box-front.png" alt="Flagship Events box">
         </div>
-        <div class="fan-card fc-1"><span>DevFest</span></div>
-        <div class="fan-card fc-2"><span>Build with AI</span></div>
-        <div class="fan-card fc-3"><span>Google IO Extended</span></div>
-        <div class="fan-card fc-4"><span>IO Extended</span></div>
-        <div class="fan-card fc-5"><span>Blaze</span></div>
+        <img class="fan-card" src="assets/card-1.png" alt="DevFest">
+        <img class="fan-card" src="assets/card-2.png" alt="Build with AI">
+        <img class="fan-card" src="assets/card-3.png" alt="Google I/O Extended">
+        <img class="fan-card" src="assets/card-4.png" alt="Blaze">
+        <img class="fan-card" src="assets/card-5.png" alt="AI Seekho">
       </div>
     </div>
   </section>
@@ -94,14 +106,14 @@
   <section class="partners" id="partners">
     <h2 class="section-heading"><span class="dim">Companies we </span><strong>collaborate</strong><span class="dim"> with.</span></h2>
     <div class="logo-grid" role="list">
-      <div class="logo-cell" role="listitem"><span class="wordmark">10Pearls</span></div>
-      <div class="logo-cell" role="listitem"><span class="wordmark">Careem</span></div>
-      <div class="logo-cell" role="listitem"><span class="wordmark">GitHub</span></div>
-      <div class="logo-cell" role="listitem"><span class="wordmark">DigitalOcean</span></div>
-      <div class="logo-cell" role="listitem"><span class="wordmark">HBL</span></div>
-      <div class="logo-cell" role="listitem"><span class="wordmark">Katalyst Labs</span></div>
-      <div class="logo-cell" role="listitem"><span class="wordmark">S&amp;P Global</span></div>
-      <div class="logo-cell" role="listitem"><span class="wordmark">Colabs</span></div>
+      <div class="logo-cell" role="listitem"><img class="partner-logo" src="assets/partner-10Pearls.svg" alt="10Pearls"></div>
+      <div class="logo-cell" role="listitem"><img class="partner-logo" src="assets/partner-Careem.svg" alt="Careem"></div>
+      <div class="logo-cell" role="listitem"><img class="partner-logo" src="assets/partner-Github.svg" alt="GitHub"></div>
+      <div class="logo-cell" role="listitem"><img class="partner-logo" src="assets/partner-DigitalOcean.svg" alt="DigitalOcean"></div>
+      <div class="logo-cell" role="listitem"><img class="partner-logo" src="assets/partner-HBL.svg" alt="HBL"></div>
+      <div class="logo-cell" role="listitem"><img class="partner-logo" src="assets/partner-KatalystLabs.svg" alt="Katalyst Labs"></div>
+      <div class="logo-cell" role="listitem"><img class="partner-logo" src="assets/partner-SPGlobal.svg" alt="S&amp;P Global"></div>
+      <div class="logo-cell" role="listitem"><img class="partner-logo" src="assets/partner-Colabs.svg" alt="Colabs"></div>
     </div>
   </section>
 
@@ -110,26 +122,32 @@
     <h2 class="section-heading center">Curated Moments</h2>
     <p class="section-sub">Our workshops, hackathons &amp; community events. Drag to explore.</p>
     <div class="gallery" id="gallery" tabindex="0" aria-label="Curated moments gallery, drag to explore">
-      <figure class="g-card g-tall g-art1">
-        <figcaption><strong>Blaze 4.0</strong><span>WomenTechMakers Kolachi Event</span></figcaption>
+      <figure class="g-card g-tall">
+        <img src="assets/gallery-blaze.jpg" alt="Blaze 4.0">
+        <figcaption><strong>Blaze 4.0</strong><span>A WomenTechmakers Kolachi Event</span></figcaption>
       </figure>
       <div class="g-col">
-        <figure class="g-card g-square g-art2">
-          <figcaption><strong>Build with AI 2025</strong><span>Hands-on Workshops at The Hive</span></figcaption>
+        <figure class="g-card g-square">
+          <img src="assets/gallery-ai2025.jpg" alt="Build with AI 2025">
+          <figcaption><strong>Build with AI 2025</strong><span>Hands-on Workshops at the Hive.</span></figcaption>
         </figure>
-        <figure class="g-card g-square g-art3">
-          <figcaption><strong>Mini Hackathon 2025</strong><span>Surprise Hackathon at Folio3</span></figcaption>
+        <figure class="g-card g-square">
+          <img src="assets/gallery-hackathon.jpg" alt="Mini Hackathon 2025">
+          <figcaption><strong>Mini Hackathon 2025</strong><span>Surprise Hackathon at Folio3.</span></figcaption>
         </figure>
       </div>
-      <figure class="g-card g-tall g-art4">
-        <figcaption><strong>Google IO Extended 2025</strong><span>Biggest Event of the Summer</span></figcaption>
+      <figure class="g-card g-tall">
+        <img src="assets/gallery-io2025.jpg" alt="Google IO Extended 2025">
+        <figcaption><strong>Google IO Extended 2025</strong><span>Our biggest Event of the Summer.</span></figcaption>
       </figure>
       <div class="g-col">
-        <figure class="g-card g-square g-art5">
-          <figcaption><strong>Google Devfest 2025</strong><span>Flagship Event of the Year</span></figcaption>
+        <figure class="g-card g-square">
+          <img src="assets/gallery-devfest.jpg" alt="Google Devfest 2025">
+          <figcaption><strong>Google Devfest 2025</strong><span>Our Flagship Event of the year.</span></figcaption>
         </figure>
-        <figure class="g-card g-square g-art6">
-          <figcaption><strong>Build with AI 2026</strong><span>Roadshow Workshop for Designers</span></figcaption>
+        <figure class="g-card g-square">
+          <img src="assets/gallery-ai2026.jpg" alt="Build with AI 2026">
+          <figcaption><strong>Build with AI 2026</strong><span>A Roadshow workshop for Designers.</span></figcaption>
         </figure>
       </div>
     </div>
@@ -142,8 +160,8 @@
       <h2 class="member-heading">Become a<br>Member</h2>
       <p class="member-copy">Join builders, designers and innovators. Attend events, grow your skills and ship real projects with a community that builds together.</p>
       <div class="member-ctas">
-        <a class="btn btn-join" href="#">Join Now</a>
-        <a class="btn btn-outline" href="#">Learn More</a>
+        <a class="btn btn-join" href="https://gdg.community.dev/gdg-kolachi/" target="_blank" rel="noopener">Join Now</a>
+        <a class="btn btn-outline" href="https://gdg.community.dev/gdg-kolachi/" target="_blank" rel="noopener">Learn More</a>
       </div>
     </div>
     <div class="member-right">
@@ -166,23 +184,23 @@
     <p class="team-eyebrow">2026 Core Team</p>
     <h2 class="section-heading center">The Team</h2>
     <div class="team-grid" id="teamGrid">
-      <article class="team-card"><div class="avatar av-1">DP</div><h3>Danella Patrick</h3><p>Lead Organizer</p></article>
-      <article class="team-card"><div class="avatar av-2">HJ</div><h3>Hassam Jawed</h3><p>Lead Organizer</p></article>
-      <article class="team-card"><div class="avatar av-3">AM</div><h3>Abdul Munim</h3><p>Co-Organizer</p></article>
-      <article class="team-card"><div class="avatar av-4">FA</div><h3>Fizzah Aizaz</h3><p>Co-Organizer</p></article>
-      <article class="team-card"><div class="avatar av-5">HF</div><h3>Hazika Farooq</h3><p>Co-Organizer</p></article>
-      <article class="team-card"><div class="avatar av-6">AK</div><h3>Aashir Khan</h3><p>Team Member</p></article>
-      <article class="team-card"><div class="avatar av-1">HM</div><h3>Hassan Mujtaba</h3><p>Team Member</p></article>
-      <article class="team-card"><div class="avatar av-2">MA</div><h3>Muhammad Ateeb</h3><p>Team Member</p></article>
-      <article class="team-card"><div class="avatar av-3">HM</div><h3>Hiba Mallick</h3><p>Team Member</p></article>
-      <article class="team-card"><div class="avatar av-4">AS</div><h3>Alisha Shamsi</h3><p>Team Member</p></article>
-      <article class="team-card"><div class="avatar av-5">AB</div><h3>Ahmed Bashaar</h3><p>Team Member</p></article>
-      <article class="team-card"><div class="avatar av-6">MS</div><h3>Momina Sheikh</h3><p>Team Member</p></article>
-      <article class="team-card"><div class="avatar av-1">Y</div><h3>Yasir</h3><p>Team Member</p></article>
-      <article class="team-card"><div class="avatar av-2">AS</div><h3>Ashhad Safwan</h3><p>Team Member</p></article>
-      <article class="team-card"><div class="avatar av-3">MM</div><h3>Maaz Mohiuddin</h3><p>Team Member</p></article>
-      <article class="team-card"><div class="avatar av-4">AA</div><h3>Abdullah Ahmed</h3><p>Team Member</p></article>
-      <article class="team-card"><div class="avatar av-5">FS</div><h3>Farah Shafi</h3><p>Team Member</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-1.jpg" alt="Danella Patrick"><h3>Danella Patrick</h3><p>Lead Organizer</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-2.jpg" alt="Hassam Jawed"><h3>Hassam Jawed</h3><p>Lead Organizer</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-3.jpg" alt="Abdul Munim"><h3>Abdul Munim</h3><p>Co-Organizer</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-5.jpg" alt="Fizzah Aizaz"><h3>Fizzah Aizaz</h3><p>Co-Organizer</p></article>
+      <article class="team-card"><img class="avatar-img pos35" src="assets/team-14.jpg" alt="Hazika Farooq"><h3>Hazika Farooq</h3><p>Co-Organizer</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-6.jpg" alt="Aashir Khan"><h3>Aashir Khan</h3><p>Team Member</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-4.jpg" alt="Hassan Mujtaba"><h3>Hassan Mujtaba</h3><p>Team Member</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-7.jpg" alt="Muhammad Ateeb"><h3>Muhammad Ateeb</h3><p>Team Member</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-8.jpg" alt="Hiba Mallick"><h3>Hiba Mallick</h3><p>Team Member</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-9.jpg" alt="Alisha Shamsi"><h3>Alisha Shamsi</h3><p>Team Member</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-10.jpg" alt="Ahmed Bashaar"><h3>Ahmed Bashaar</h3><p>Team Member</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-11.jpg" alt="Momina Sheikh"><h3>Momina Sheikh</h3><p>Team Member</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-12.jpg" alt="Yasir"><h3>Yasir</h3><p>Team Member</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-13.jpg" alt="Ashhad Safwan"><h3>Ashhad Safwan</h3><p>Team Member</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-15.jpg" alt="Maaz Mohiuddin"><h3>Maaz Mohiuddin</h3><p>Team Member</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-16.jpg" alt="Abdullah Ahmed"><h3>Abdullah Ahmed</h3><p>Team Member</p></article>
+      <article class="team-card"><img class="avatar-img" src="assets/team-17.jpg" alt="Farah Shafi"><h3>Farah Shafi</h3><p>Team Member</p></article>
     </div>
   </section>
 </main>
